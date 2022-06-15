@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public class WebRequest : MonoBehaviour
 {
-    
+    public JSONAccess jsonAccess;
     private void Start()
     {
         StartCoroutine(GetRequest("https://ccf-api.hubmapconsortium.org/v1/scene"));
@@ -30,7 +30,12 @@ public class WebRequest : MonoBehaviour
                     Debug.LogError(pages[page] + ": Error: " + webRequest.error);
                     break;
                 case UnityWebRequest.Result.Success:
-                    Debug.Log(pages[page] + ":\nReceived" + webRequest.downloadHandler.text);
+                    // create variable to hold text drawn from webpage
+                    string webRequestText = webRequest.downloadHandler.text;
+                    // call function to parse the json
+                    jsonAccess.JsonFormatting(webRequestText);
+                    // show json in debug log
+                    Debug.Log(pages[page] + ":\nReceived" + webRequestText);
                     break;
             }
         }
