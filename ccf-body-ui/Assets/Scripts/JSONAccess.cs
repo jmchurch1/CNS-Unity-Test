@@ -10,13 +10,15 @@ public class JSONAccess : MonoBehaviour
     {
         public string @id;
         public string @type;
+        public string entityId;
+        public List<string> ccf_annotations;
         public string representation_of;
         public string reference_organ;
         public string scenegraph;
         public string scenegraphNode;
-        public List<int> transformMatrix;
+        public List<float> transformMatrix;
         public string tooltip;
-        public Color color;
+        public List<float> color;
         public float opacity;
         public bool unpickable;
         public string _lighting;
@@ -33,8 +35,11 @@ public class JSONAccess : MonoBehaviour
     
     public void JsonFormatting(string json)
     {
+        // the JsonUtility class doesn't have functionality for JSON lists yet, so I have to make it into an object
         json = "{ \"entries\": " + json;
         json = json + " }";
+        // JsonUtility was not reading the @ symbols so I removed them
+        json = json.Replace("@", "");
         entryList = JsonUtility.FromJson<EntryList>(json);
     }
 }
