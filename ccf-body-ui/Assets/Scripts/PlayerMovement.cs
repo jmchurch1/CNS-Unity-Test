@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.UI;
@@ -6,11 +7,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float movementDistance = 0.001f;
-    
+
+    [SerializeField] private Vector3 currPosition;
+
     // Update is called once per frame
     void Update()
     {
-        Vector3 currPosition = transform.position;
+        currPosition = transform.position;
         if (Input.GetKeyDown(KeyCode.A))
         {
             transform.position = new Vector3(currPosition.x + movementDistance, currPosition.y, currPosition.z);
